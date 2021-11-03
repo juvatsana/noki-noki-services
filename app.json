@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "food-delivery-app-expo",
-    "slug": "food-delivery-app-expo",
+    "name": "noki-noki-services",
+    "slug": "noki-noki-services",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,10 +13,10 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "noki.noki.services",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
