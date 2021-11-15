@@ -13,7 +13,20 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "extra": {
+      "IOS_KEY": "958244125921-tl38eq1d28dlu2ks82keq55qvbcv8k01.apps.googleusercontent.com",
+      "ANDROID_KEY": "958244125921-amj26k50koas5q1a818mqd4j9o9e4sip.apps.googleusercontent.com",
+      "API_KEY": "AIzaSyDfiiZvwVyC0SiZ_-jtCqXMYB8uD55IFu8" ,
+      "AUTH_DOMAIN": "fir-auth-40580.firebaseapp.com",
+      "DATABASE_URL": "",
+      "PROJECT_ID": "fir-auth-40580",
+      "STORAGE_BUCKET": "fir-auth-40580.appspot.com",
+      "MESSAGE_SENDER_ID": "958244125921",
+      "APP_ID": "1:958244125921:web:d9de8add0410484694cba0"
+    },
     "ios": {
       "bundleIdentifier": "noki.noki.services",
       "buildNumber": "1.0.0",
@@ -23,7 +36,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "noki.noki.services"
     },
     "web": {
       "favicon": "./assets/favicon.png"

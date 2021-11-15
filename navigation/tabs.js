@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
     View,
     Image,
@@ -8,14 +8,13 @@ import { createBottomTabNavigator, BottomTabBar } from "@react-navigation/bottom
 import Svg, { Path } from 'react-native-svg';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 
-import { Home } from "../screens"
+import { Home } from "../screens";
+import { User } from "../screens";
 
 import { COLORS, icons } from "../constants"
-
 const Tab = createBottomTabNavigator();
 
 const TabBarCustomButton = ({ accessibilityState, children, onPress }) => {
-
     var isSelected = accessibilityState.selected
 
     if (isSelected) {
@@ -187,10 +186,9 @@ const Tabs = () => {
                     )
                 }}
             />
-
             <Tab.Screen
                 name="User"
-                component={Home}
+                component={User}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -209,7 +207,8 @@ const Tabs = () => {
                         />
                     )
                 }}
-            />
+            /> 
+
         </Tab.Navigator>
     )
 }
