@@ -21,7 +21,6 @@ const Restaurant = ({ route, navigation }) => {
 
   React.useEffect(() => {
     let { item, currentLocation } = route.params;
-
     setRestaurant(item);
     setCurrentLocation(currentLocation);
   });
@@ -79,27 +78,6 @@ const Restaurant = ({ route, navigation }) => {
     let total = orderItems.reduce((a, b) => a + (b.total || 0), 0);
 
     return total;
-  }
-
-  function openWhatsApp(product) {
-    let msg = "[COMMANDE]\n" + product;
-    let mobile = "065286600";
-    if (mobile) {
-      if (msg) {
-        let url = "whatsapp://send?text=" + msg + "&phone=242" + mobile;
-        Linking.openURL(url)
-          .then((data) => {
-            console.log("WhatsApp Opened successfully " + data);
-          })
-          .catch(() => {
-            alert("Make sure WhatsApp installed on your device");
-          });
-      } else {
-        alert("Please enter message to send");
-      }
-    } else {
-      alert("Please enter mobile no");
-    }
   }
 
   function renderHeader() {
@@ -378,6 +356,21 @@ const Restaurant = ({ route, navigation }) => {
     );
   }
 
+  function summarizeCommand() {
+    let totalCommand = "";
+    for (let e in orderItems) {
+      const findRestaurant = restaurant.menu.filter(
+        (food) => food.menuId == orderItems[e].menuId
+      );
+      let command =
+        "- " + orderItems[e].qty + " " + findRestaurant[0].name + "\n";
+      totalCommand += command;
+    }
+    let price = "[PRIX]\n" + sumOrder() + " FCFA\n";
+    let address = "[ADRESSE]\n!!! A COMPLETER !!!";
+    return totalCommand + price + address;
+  }
+
   function renderOrder() {
     return (
       <View style={{ backgroundColor: "#F8D521" }}>
@@ -459,23 +452,11 @@ const Restaurant = ({ route, navigation }) => {
                 borderRadius: SIZES.radius,
               }}
               onPress={() => {
-                let totalCommand = "";
-                for (let e in orderItems) {
-                  const findRestaurant = restaurant.menu.filter(
-                    (food) => food.menuId == orderItems[e].menuId
-                  );
-                  console.log(findRestaurant);
-                  let command =
-                    "- " +
-                    orderItems[e].qty +
-                    " " +
-                    findRestaurant[0].name +
-                    "\n";
-                  totalCommand += command;
-                }
-                let price = "[PRIX]\n" + sumOrder() + " FCFA\n";
-                let address = "[ADRESSE]\n!!! A COMPLETER !!!";
-                openWhatsApp(totalCommand + price + address);
+                navigation.navigate("OrderDelivery", {
+                  restaurant: restaurant,
+                  currentLocation: currentLocation,
+                  command: summarizeCommand(),
+                });
               }}
             >
               <Text style={{ color: COLORS.white, ...FONTS.h2 }}>

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Linking } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
@@ -8,6 +8,7 @@ import { COLORS, FONTS, icons, SIZES, GOOGLE_API_KEY } from "../constants";
 const OrderDelivery = ({ route, navigation }) => {
   const mapView = React.useRef();
 
+  const [command, setCommand] = React.useState(null);
   const [restaurant, setRestaurant] = React.useState(null);
   const [streetName, setStreetName] = React.useState("");
   const [fromLocation, setFromLocation] = React.useState(null);
@@ -19,8 +20,7 @@ const OrderDelivery = ({ route, navigation }) => {
   const [angle, setAngle] = React.useState(0);
 
   React.useEffect(() => {
-    let { restaurant, currentLocation } = route.params;
-    console.log(restaurant);
+    let { restaurant, currentLocation, command } = route.params;
     let fromLoc = currentLocation.gps;
     let toLoc = restaurant.location;
     let street = currentLocation.streetName;
@@ -32,6 +32,7 @@ const OrderDelivery = ({ route, navigation }) => {
       longitudeDelta: Math.abs(fromLoc.longitude - toLoc.longitude) * 2,
     };
 
+    setCommand(command);
     setRestaurant(restaurant);
     setStreetName(street);
     setFromLocation(fromLoc);
@@ -172,7 +173,7 @@ const OrderDelivery = ({ route, navigation }) => {
               }
             }}
           />
-          {destinationMarker()}
+          {toLocation ? destinationMarker() : null}
           {fromLocation ? carIcon() : null}
         </MapView>
       </View>
@@ -213,13 +214,34 @@ const OrderDelivery = ({ route, navigation }) => {
           />
 
           <View style={{ flex: 1 }}>
-            <Text style={{ ...FONTS.body3 }}>{streetName}</Text>
+            <Text style={{ ...FONTS.body3 }}>{restaurant?.name}</Text>
           </View>
 
           <Text style={{ ...FONTS.body3 }}>{Math.ceil(duration)} mins</Text>
         </View>
       </View>
     );
+  }
+
+  function openWhatsApp(product) {
+    let msg = "[COMMANDE]\n" + product;
+    let mobile = "065286600";
+    if (mobile) {
+      if (msg) {
+        let url = "whatsapp://send?text=" + msg + "&phone=242" + mobile;
+        Linking.openURL(url)
+          .then((data) => {
+            console.log("WhatsApp Opened successfully " + data);
+          })
+          .catch(() => {
+            alert("Make sure WhatsApp installed on your device");
+          });
+      } else {
+        alert("Please enter message to send");
+      }
+    } else {
+      alert("Please enter mobile no");
+    }
   }
 
   function renderDeliveryInfo() {
@@ -302,9 +324,14 @@ const OrderDelivery = ({ route, navigation }) => {
                 justifyContent: "center",
                 borderRadius: 10,
               }}
-              onPress={() => navigation.navigate("Home")}
+              onPress={() => {
+                openWhatsApp(command);
+                //navigation.navigate("Home");
+              }}
             >
-              <Text style={{ ...FONTS.h4, color: COLORS.white }}>Call</Text>
+              <Text style={{ ...FONTS.h4, color: COLORS.white }}>
+                Commander
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -318,7 +345,7 @@ const OrderDelivery = ({ route, navigation }) => {
               }}
               onPress={() => navigation.goBack()}
             >
-              <Text style={{ ...FONTS.h4, color: COLORS.white }}>Cancel</Text>
+              <Text style={{ ...FONTS.h4, color: COLORS.white }}>Annuler</Text>
             </TouchableOpacity>
           </View>
         </View>
