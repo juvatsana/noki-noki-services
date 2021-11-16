@@ -14,6 +14,7 @@ const mami_8 = require("../assets/images/mami8.jpg");
 const mami_9 = require("../assets/images/mami9.jpg");
 const mami_10 = require("../assets/images/mami10.jpg");
 const header_1 = require("../assets/images/header.png");
+const livreur = require("../assets/images/livreur.jpg");
 const avatar_1 = require("../assets/images/avatar-1.jpg");
 const avatar_2 = require("../assets/images/avatar-2.jpg");
 const avatar_3 = require("../assets/images/avatar-3.jpg");
@@ -63,6 +64,7 @@ export default {
   mami_10,
 
   header_1,
+  livreur,
   avatar_1,
   avatar_2,
   avatar_3,
