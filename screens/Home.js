@@ -10,15 +10,30 @@ import {
 } from "react-native";
 
 import { icons, images, SIZES, COLORS, FONTS } from "../constants";
+import Geolocation from "react-native-geolocation-service";
 
 const Home = ({ navigation }) => {
   // Dummy Datas
 
+  // TODO LATER
+  // if (hasLocationPermission) {
+  //   Geolocation.getCurrentPosition(
+  //     (position) => {
+  //       console.log(position);
+  //     },
+  //     (error) => {
+  //       // See error code charts below.
+  //       console.log(error.code, error.message);
+  //     },
+  //     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+  //   );
+  // }
+
   const initialCurrentLocation = {
-    streetName: "Kuching",
+    streetName: "Noki Noki Services",
     gps: {
-      latitude: 1.5496614931250685,
-      longitude: 110.36381866919922,
+      latitude: -4.254641720910855,
+      longitude: 15.26376760198731,
     },
   };
 
@@ -100,12 +115,12 @@ const Home = ({ navigation }) => {
       photo: images.bali_5,
       duration: "30 - 45 min",
       location: {
-        latitude: 1.5347282806345879,
-        longitude: 110.35632207358996,
+        latitude: -4.282800700742267,
+        longitude: 15.259257035253393,
       },
       courier: {
-        avatar: images.avatar_1,
-        name: "Amy",
+        avatar: images.livreur,
+        name: "Livreur Noki Noki",
       },
       menu: [
         {
@@ -159,12 +174,12 @@ const Home = ({ navigation }) => {
       photo: images.mami_1,
       duration: "15 - 20 min",
       location: {
-        latitude: 1.556306570595712,
-        longitude: 110.35504616746915,
+        latitude: -4.277346158433737,
+        longitude: 15.283628015896843,
       },
       courier: {
-        avatar: images.avatar_2,
-        name: "Jackson",
+        avatar: images.livreur,
+        name: "Livreur Noki Noki",
       },
       menu: [
         {
