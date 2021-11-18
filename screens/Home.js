@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 import { icons, images, SIZES, COLORS, FONTS } from "../constants";
-import Geolocation from "react-native-geolocation-service";
+//import Geolocation from "react-native-geolocation-service";
 
 const Home = ({ navigation }) => {
   // Dummy Datas
